@@ -3,8 +3,20 @@
 function usage {
 cat << EOF
 wifi <condition> <wl_device>
+
+condition:
+    --new  setup a new wifi connection. users will be prompted to enter
+           the ssid and passphrase for the new router.
+    
+    --curr Starts up pre-existing wifi connection.
+
+wl_device:
+    The wifi card on the system that will be utilized to connect to the
+    wifi router
+
 EOF
 }
+
 
 cond=$1
 wl_dev=$2
