@@ -1,0 +1,31 @@
+#!/bin/bash
+
+function usage {
+cat << EOF
+wifi <condition> <wl_device>
+EOF
+}
+
+cond=$1
+wl_dev=$2
+
+conf=/etc/wpa_supplicant/wpa_supplicant.conf
+
+[ $# -ne 2 ] && usage &&  exit
+
+case $cond in
+'--new')
+        read -p "Please enter SSID and Passphrase: " -s ssid psk
+        [ -z $ssid ] || [ -z $psk ] && echo 'No network info entered' && exit
+        sudo wpa_passphrase $ssid $psk
+        sudo wpa_supplicant -B -i $wl_dev -c $conf
+        sudo dhclient $wl_dev
+        ;;
+'--curr')
+        sudo wpa_supplicant -B -i $wl_dev -c $conf
+        sudo dhclient $wl_dev
+        ;;
+*)
+        usage
+        exit
+esac
