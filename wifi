@@ -17,7 +17,6 @@ wl_device:
 EOF
 }
 
-
 cond=$1
 wl_dev=$2
 
